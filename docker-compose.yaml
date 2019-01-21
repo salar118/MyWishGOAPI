@@ -1,0 +1,12 @@
+version: "3"
+#define type of containers in services
+services:
+  mongo-server:
+    container_name: mongo-server
+    #use lightweight mongo
+    image: "mvertes/alpine-mongo"
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  

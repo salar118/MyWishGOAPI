@@ -1,0 +1,1 @@
+command + shift + B: will build and execute the go files.
