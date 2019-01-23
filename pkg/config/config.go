@@ -9,6 +9,12 @@ type MongoConfig struct {
 }
 
 //ServerConfig contains server port
-type ServerConfig struct {
+type HttpServerConfig struct {
 	Port string `json:"port"`
+}
+
+//GetConfig get http server config
+func GetConfig() *HttpServerConfig {
+	return &HttpServerConfig{
+		Port:":8888"}
 }

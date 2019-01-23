@@ -15,5 +15,5 @@ func main() {
 		DbName: "WishDB",
 	}
 	a.Initialize(&mongoconfig)
-	a.Start(mongoconfig.Port)
+	a.Start()
 }

@@ -5,43 +5,41 @@ import (
 	"log"
 
 	"./pkg/config"
-	model "./pkg/model"
 	"./pkg/mongo"
-	"github.com/gorilla/mux"
-	mgo "gopkg.in/mgo.v2"
+	"./pkg/server"
 )
 
 //WishApp exposes references to the router and the database that the application uses
 type WishApp struct {
-	session *mongo.MongoSession
-	Router *mux.Router
-	DB     *mgo.Collection
+	httpServer *server.HTTPServer
+	session    *mongo.MongoSession
 }
 
 //Initialize take in details required to connect to db
 //and create db and wire up the routes to respond according
 //to requirements
-func (a *WishApp) Initialize(config *config.MongoConfig) {
+func (wa *WishApp) Initialize(mongoConfig *config.MongoConfig) {
+
 
 	//var err error
-	mongoSession, err := mongo.NewMongoSession(config)
+	mongoSession, err := mongo.NewMongoSession(mongoConfig)
 	if err != nil {
 		log.Println("No mongodb session")
 		return
 	}
 
-	wishService := mongo.NewWishService(mongoSession, config)
 
-	wish := model.Wish{
-		Title: "wish titles",
-		Story: "wish storysssswww",
-	}
+	//u := mongo.NewUserService(a.session.Copy(), a.config.Mongo)
 
-	wishService.CreateWish(&wish)
-	fmt.Println("Inserting wish ......", wish)
+	wishService := mongo.NewWishService(mongoSession, mongoConfig)
+
+	wa.httpServer = server.NewServer(wishService)
+
 }
 
 //Start the application
-func (a *WishApp) Start(addr string) {
+func (wa *WishApp) Start() {
+	fmt.Println("Starting the http httpServer")
+	wa.httpServer.Start()
 
 }
