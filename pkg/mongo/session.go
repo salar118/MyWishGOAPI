@@ -7,14 +7,17 @@ import (
 	mgo "gopkg.in/mgo.v2"
 )
 
-//Session contains mongo session
+//MongoSession contains mongo session
 type MongoSession struct {
 	session *mgo.Session
 }
 
 //NewMongoSession establish a mongo session
-func NewMongoSession(config *config.MongoConfig) (*MongoSession, error) {
+func NewMongoSession() (*MongoSession, error) {
 	s := MongoSession{}
+
+	config := config.GetMongoConfig()
+
 	//var err error
 	session, err := mgo.Dial(config.IP)
 	if err != nil {

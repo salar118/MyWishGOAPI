@@ -11,7 +11,10 @@ type WishService struct {
 	collection *mgo.Collection
 }
 
-func NewWishService(mongoSession *MongoSession, config *config.MongoConfig) *WishService {
+//NewWishService create and initiate a WishService
+func NewWishService(mongoSession *MongoSession) *WishService {
+	config := config.GetMongoConfig()
+
 	collection := mongoSession.session.DB(config.DbName).C("Wish")
 	collection.EnsureIndex(wishModelIndex())
 	return &WishService{collection}

@@ -8,13 +8,21 @@ type MongoConfig struct {
 	DbName string `json:"dbName"`
 }
 
-//ServerConfig contains server port
-type HttpServerConfig struct {
+//HTTPServerConfig contains server port
+type HTTPServerConfig struct {
 	Port string `json:"port"`
 }
 
-//GetConfig get http server config
-func GetConfig() *HttpServerConfig {
-	return &HttpServerConfig{
-		Port:":8888"}
+//GetHTTPServerConfig get http server config
+func GetHTTPServerConfig() *HTTPServerConfig {
+	return &HTTPServerConfig{
+		Port: ":8888"}
+}
+
+//GetMongoConfig returns mongo db data
+func GetMongoConfig() *MongoConfig {
+	return &MongoConfig{
+		IP:     "127.0.0.1:27017",
+		Port:   ":27017",
+		DbName: "WishDB"}
 }

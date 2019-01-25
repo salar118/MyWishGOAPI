@@ -20,7 +20,6 @@ func NewWishServer(u model.WishServicer, router *mux.Router) *mux.Router {
 
 	router.HandleFunc("/", wishRouter.createWishHandler).Methods("GET")
 	return router
-
 }
 
 func (wishRouter *wishRouter) createWishHandler(w http.ResponseWriter, r *http.Request) {

@@ -15,7 +15,7 @@ import (
 //HTTPServer contains router
 type HTTPServer struct {
 	router *mux.Router
-	config *config.HttpServerConfig
+	config *config.HTTPServerConfig
 }
 
 //NewServer Create a new HttpServer
@@ -24,7 +24,7 @@ func NewServer(userServicer model.WishServicer) *HTTPServer {
 		router: mux.NewRouter(),
 	}
 
-	s.config = config.GetConfig()
+	s.config = config.GetHTTPServerConfig()
 	s.router = NewWishServer(userServicer, s.getSubrouter("/wish"))
 
 	if s.router != nil {

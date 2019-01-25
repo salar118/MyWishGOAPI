@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	"./pkg/config"
 	"./pkg/mongo"
 	"./pkg/server"
 )
@@ -18,23 +17,17 @@ type WishApp struct {
 //Initialize take in details required to connect to db
 //and create db and wire up the routes to respond according
 //to requirements
-func (wa *WishApp) Initialize(mongoConfig *config.MongoConfig) {
-
+func (wa *WishApp) Initialize() {
 
 	//var err error
-	mongoSession, err := mongo.NewMongoSession(mongoConfig)
+	mongoSession, err := mongo.NewMongoSession()
 	if err != nil {
 		log.Println("No mongodb session")
 		return
 	}
 
-
-	//u := mongo.NewUserService(a.session.Copy(), a.config.Mongo)
-
-	wishService := mongo.NewWishService(mongoSession, mongoConfig)
-
+	wishService := mongo.NewWishService(mongoSession)
 	wa.httpServer = server.NewServer(wishService)
-
 }
 
 //Start the application
